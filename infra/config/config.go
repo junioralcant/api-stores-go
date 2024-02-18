@@ -7,14 +7,14 @@ import (
 )
 
 var (
-	db     *gorm.DB
-	logger *Logger
+	DB  *gorm.DB
+	Log *Logger
 )
 
 func Init() error {
 	var err error
 
-	db, err = InicializePg()
+	DB, err = InicializePg()
 
 	if err != nil {
 		return fmt.Errorf("database initialization error: %v", err)
@@ -23,10 +23,10 @@ func Init() error {
 }
 
 func GetPg() *gorm.DB {
-	return db
+	return DB
 }
 
 func GetLogger(p string) *Logger {
-	logger = NewLogger(p)
-	return logger
+	Log = NewLogger(p)
+	return Log
 }
