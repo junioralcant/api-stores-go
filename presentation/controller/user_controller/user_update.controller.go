@@ -1,9 +1,14 @@
 package user_controller
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/junioralcant/api-stores-go/domain/contracts/user_contracts"
 	"github.com/junioralcant/api-stores-go/domain/models"
+	"github.com/junioralcant/api-stores-go/infra/config"
+	"github.com/junioralcant/api-stores-go/presentation/helpers"
+	"github.com/junioralcant/api-stores-go/validation/user_validation"
 )
 
 type UserUpdateController struct {
@@ -12,23 +17,25 @@ type UserUpdateController struct {
 
 func (u *UserUpdateController) Handle(ctx *gin.Context) {
 	id := ctx.Query("id")
-	request := models.User{}
+	request := user_validation.UpdateUser{}
 
-	ctx.BindJSON(&request)
+	ctx.BindJSON(&request.User)
+
+	if err := request.Validate(); err != nil {
+		config.Log.Errorf("Error validating request: %v", err.Error())
+		helpers.SendError(ctx, http.StatusBadRequest, err.Error())
+		return
+	}
 
 	user := models.User{
-		Name:     request.Name,
-		Email:    request.Email,
-		Password: request.Password,
-		Phone:    request.Phone,
-		CPF:      request.CPF,
+		Name:     request.User.Name,
+		Email:    request.User.Email,
+		Password: request.User.Password,
+		Phone:    request.User.Phone,
+		CPF:      request.User.CPF,
 	}
 
 	response := u.UseCase.Update(id, user)
 
-	ctx.Header("Content-Type", "application/json")
-
-	ctx.JSON(200, gin.H{
-		"data": response,
-	})
+	helpers.SendSuccess(ctx, "user updated", response)
 }

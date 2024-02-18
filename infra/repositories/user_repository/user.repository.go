@@ -38,18 +38,32 @@ func (r *UserRepository) Create(user models.User) *models.User {
 
 func (r *UserRepository) Update(id string, user models.User) *models.User {
 
-	userUpdated := user
+	userUpdated := models.User{}
 
-	if err := config.DB.First(&user, id).Error; err != nil {
+	if err := config.DB.First(&userUpdated, id).Error; err != nil {
 		config.Log.Errorf("error in search user: %+v", err)
 		return nil
 	}
 
-	userUpdated.Name = user.Name
-	userUpdated.Email = user.Email
-	userUpdated.Password = user.Password
-	userUpdated.Phone = user.Phone
-	userUpdated.CPF = user.CPF
+	if user.Name != "" {
+		userUpdated.Name = user.Name
+	}
+
+	if user.Email != "" {
+		userUpdated.Email = user.Email
+	}
+
+	if user.Password != "" {
+		userUpdated.Password = user.Password
+	}
+
+	if user.Phone != "" {
+		userUpdated.Phone = user.Phone
+	}
+
+	if user.CPF != "" {
+		userUpdated.CPF = user.CPF
+	}
 
 	if err := config.DB.Save(&userUpdated).Error; err != nil {
 		config.Log.Errorf("error in update user: %+v", err)
