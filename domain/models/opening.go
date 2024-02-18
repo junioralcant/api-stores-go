@@ -9,5 +9,5 @@ type User struct {
 	CPF      string `json:"cpf"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
-	Status   bool   `json:"status" gorm:"default:true"`
+	Status   *bool  `json:"status" gorm:"default:true"`
 }

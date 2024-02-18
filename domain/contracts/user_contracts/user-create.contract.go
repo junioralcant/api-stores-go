@@ -1,9 +1,7 @@
-package user_contracts_infra
+package user_contracts
 
 import "github.com/junioralcant/api-stores-go/domain/models"
 
-type IUserRepository interface {
-	ListAll() []models.User
-
+type IUserCreate interface {
 	Create(user models.User) *models.User
 }

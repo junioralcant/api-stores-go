@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/junioralcant/api-stores-go/main/router/userR"
+	"github.com/junioralcant/api-stores-go/main/router/user_routes"
 )
 
 func Initialize() {
@@ -10,7 +10,7 @@ func Initialize() {
 
 	r := gin.Default()
 
-	userR.InitUserRoutes(r, apiPrefix)
+	user_routes.InitUserRoutes(r, apiPrefix)
 
 	r.Run(":3333")
 }
