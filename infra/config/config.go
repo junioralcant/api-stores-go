@@ -22,7 +22,7 @@ func Init() error {
 	return nil
 }
 
-func GetSQLite() *gorm.DB {
+func GetPg() *gorm.DB {
 	return db
 }
 
