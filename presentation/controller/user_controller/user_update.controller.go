@@ -16,7 +16,7 @@ type UserUpdateController struct {
 }
 
 func (u *UserUpdateController) Handle(ctx *gin.Context) {
-	id := ctx.Query("id")
+
 	request := user_validation.UpdateUser{}
 
 	ctx.BindJSON(&request.User)
@@ -24,6 +24,12 @@ func (u *UserUpdateController) Handle(ctx *gin.Context) {
 	if err := request.Validate(); err != nil {
 		config.Log.Errorf("Error validating request: %v", err.Error())
 		helpers.SendError(ctx, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	id := ctx.Query("id")
+	if id == "" {
+		helpers.SendError(ctx, http.StatusBadRequest, helpers.ErrParamIsRequired("id", "string").Error())
 		return
 	}
 
@@ -35,7 +41,12 @@ func (u *UserUpdateController) Handle(ctx *gin.Context) {
 		CPF:      request.User.CPF,
 	}
 
-	response := u.UseCase.Update(id, user)
+	response, err := u.UseCase.Update(id, user)
+
+	if err != nil {
+		helpers.SendError(ctx, http.StatusBadRequest, err.Error())
+		return
+	}
 
 	helpers.SendSuccess(ctx, "user updated", response)
 }

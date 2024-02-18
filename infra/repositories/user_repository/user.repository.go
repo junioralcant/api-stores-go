@@ -1,6 +1,8 @@
 package user_repository
 
 import (
+	"fmt"
+
 	"github.com/junioralcant/api-stores-go/domain/models"
 	"github.com/junioralcant/api-stores-go/infra/config"
 )
@@ -36,13 +38,12 @@ func (r *UserRepository) Create(user models.User) *models.User {
 	return &userCreate
 }
 
-func (r *UserRepository) Update(id string, user models.User) *models.User {
+func (r *UserRepository) Update(id string, user models.User) (*models.User, error) {
 
 	userUpdated := models.User{}
 
 	if err := config.DB.First(&userUpdated, id).Error; err != nil {
-		config.Log.Errorf("error in search user: %+v", err)
-		return nil
+		return nil, fmt.Errorf("error in search user: %+v", err)
 	}
 
 	if user.Name != "" {
@@ -66,10 +67,9 @@ func (r *UserRepository) Update(id string, user models.User) *models.User {
 	}
 
 	if err := config.DB.Save(&userUpdated).Error; err != nil {
-		config.Log.Errorf("error in update user: %+v", err)
-		return nil
+		return nil, fmt.Errorf("error in update user: %+v", err)
 	}
 
-	return &userUpdated
+	return &userUpdated, nil
 
 }
