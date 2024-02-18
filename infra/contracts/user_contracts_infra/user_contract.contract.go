@@ -6,4 +6,6 @@ type IUserRepository interface {
 	ListAll() []models.User
 
 	Create(user models.User) *models.User
+
+	Update(id string, user models.User) *models.User
 }

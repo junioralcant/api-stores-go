@@ -4,6 +4,7 @@ import "gorm.io/gorm"
 
 type User struct {
 	gorm.Model
+	ID       int64
 	Name     string `json:"name"`
 	Phone    string `json:"phone"`
 	CPF      string `json:"cpf"`

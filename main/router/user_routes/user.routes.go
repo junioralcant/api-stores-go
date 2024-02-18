@@ -17,9 +17,14 @@ func InitUserRoutes(r *gin.Engine, apiPrefix string) {
 	useCaseCreate := user_usecase.UserCreateUseCase{Repo: &repo}
 	userCreateController := user_controller.UserCreateController{UseCase: &useCaseCreate}
 
+	useCaseUpdate := user_usecase.UserUpdateUseCase{Repo: &repo}
+	userUpdateController := user_controller.UserUpdateController{UseCase: &useCaseUpdate}
+
 	g := r.Group(apiPrefix)
 
 	g.GET("/users", userListController.Handle)
 
 	g.POST("/user", userCreateController.Handle)
+
+	g.PUT("/user", userUpdateController.Handle)
 }

@@ -35,3 +35,27 @@ func (r *UserRepository) Create(user models.User) *models.User {
 
 	return &userCreate
 }
+
+func (r *UserRepository) Update(id string, user models.User) *models.User {
+
+	userUpdated := user
+
+	if err := config.DB.First(&user, id).Error; err != nil {
+		config.Log.Errorf("error in search user: %+v", err)
+		return nil
+	}
+
+	userUpdated.Name = user.Name
+	userUpdated.Email = user.Email
+	userUpdated.Password = user.Password
+	userUpdated.Phone = user.Phone
+	userUpdated.CPF = user.CPF
+
+	if err := config.DB.Save(&userUpdated).Error; err != nil {
+		config.Log.Errorf("error in update user: %+v", err)
+		return nil
+	}
+
+	return &userUpdated
+
+}
