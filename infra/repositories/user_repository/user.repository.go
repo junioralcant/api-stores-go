@@ -73,3 +73,18 @@ func (r *UserRepository) Update(id string, user models.User) (*models.User, erro
 	return &userUpdated, nil
 
 }
+
+func (r *UserRepository) Delete(id string) (*models.User, error) {
+
+	userDelete := models.User{}
+
+	if err := config.DB.First(&userDelete, id).Error; err != nil {
+		return nil, fmt.Errorf("error in search user: %+v", err)
+	}
+
+	if err := config.DB.Delete(&userDelete).Error; err != nil {
+		return nil, fmt.Errorf("error in delete user: %+v", err)
+	}
+
+	return &userDelete, nil
+}
