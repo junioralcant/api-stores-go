@@ -8,4 +8,6 @@ type IUserRepository interface {
 	Create(user models.User) *models.User
 
 	Update(id string, user models.User) (*models.User, error)
+
+	Delete(id string) (*models.User, error)
 }
