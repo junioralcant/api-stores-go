@@ -4,15 +4,13 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/junioralcant/api-stores-go/data/usecases/user_usecase"
 	"github.com/junioralcant/api-stores-go/infra/repositories/user_repository"
+	"github.com/junioralcant/api-stores-go/main/factories/user_factories"
 	"github.com/junioralcant/api-stores-go/presentation/controller/user_controller"
 )
 
 func InitUserRoutes(r *gin.Engine, apiPrefix string) {
 
 	repo := user_repository.UserRepository{}
-
-	useCaseList := user_usecase.UserListUseCase{Repo: &repo}
-	userListController := user_controller.UserListController{UseCase: &useCaseList}
 
 	useCaseCreate := user_usecase.UserCreateUseCase{Repo: &repo}
 	userCreateController := user_controller.UserCreateController{UseCase: &useCaseCreate}
@@ -25,7 +23,7 @@ func InitUserRoutes(r *gin.Engine, apiPrefix string) {
 
 	g := r.Group(apiPrefix)
 
-	g.GET("/users", userListController.Handle)
+	g.GET("/users", user_factories.UserListAllControllerFactory().Handle)
 
 	g.POST("/user", userCreateController.Handle)
 
