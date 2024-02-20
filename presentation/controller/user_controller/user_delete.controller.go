@@ -19,7 +19,7 @@ func (u *UserDeleteController) Handle(ctx *gin.Context) {
 		return
 	}
 
-	userDelete, err := u.UseCase.Delete(id)
+	userDelete, err := u.UseCase.UserDelete(id)
 	if err != nil {
 		helpers.SendError(ctx, http.StatusBadRequest, err.Error())
 		return

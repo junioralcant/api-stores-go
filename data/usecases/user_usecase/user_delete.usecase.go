@@ -9,7 +9,7 @@ type UserDeleteUseCase struct {
 	Repo *user_repository.UserRepository
 }
 
-func (uc *UserDeleteUseCase) Delete(id string) (*models.User, error) {
+func (uc *UserDeleteUseCase) UserDelete(id string) (*models.User, error) {
 
 	userDelete, err := uc.Repo.Delete(id)
 	if err != nil {
