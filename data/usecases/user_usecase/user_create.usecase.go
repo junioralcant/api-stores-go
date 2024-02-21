@@ -6,10 +6,10 @@ import (
 )
 
 type UserCreateUseCase struct {
-	Repo user_contracts_infra.IUserRepository
+	Repo user_contracts_infra.IUserCreateRepository
 }
 
 func (u *UserCreateUseCase) UserCreate(user models.User) *models.User {
-	userCreated := u.Repo.Create(user)
+	userCreated := u.Repo.UserCreateRepo(user)
 	return userCreated
 }
