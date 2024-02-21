@@ -6,11 +6,11 @@ import (
 )
 
 type UserUpdateUseCase struct {
-	Repo user_contracts_infra.IUserRepository
+	Repo user_contracts_infra.IUserUpdateRepository
 }
 
 func (u *UserUpdateUseCase) UserUpdate(id string, user models.User) (*models.User, error) {
-	userCreated, err := u.Repo.Update(id, user)
+	userCreated, err := u.Repo.UserUpdateRepo(id, user)
 	if err != nil {
 		return nil, err
 	}
