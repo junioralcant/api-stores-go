@@ -41,7 +41,7 @@ func (u *UserUpdateController) Handle(ctx *gin.Context) {
 		CPF:      request.User.CPF,
 	}
 
-	response, err := u.UseCase.Update(id, user)
+	response, err := u.UseCase.UserUpdate(id, user)
 
 	if err != nil {
 		helpers.SendError(ctx, http.StatusBadRequest, err.Error())

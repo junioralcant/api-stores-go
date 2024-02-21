@@ -15,7 +15,7 @@ func (u *UserCreateController) Handle(ctx *gin.Context) {
 
 	ctx.BindJSON(&request)
 
-	user := u.UseCase.Create(request)
+	user := u.UseCase.UserCreate(request)
 
 	ctx.Header("Content-Type", "application/json")
 

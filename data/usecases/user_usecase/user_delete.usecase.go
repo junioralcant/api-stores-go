@@ -6,12 +6,12 @@ import (
 )
 
 type UserDeleteUseCase struct {
-	Repo *user_repository.UserRepository
+	Repo *user_repository.UserDeleteRepository
 }
 
-func (uc *UserDeleteUseCase) Delete(id string) (*models.User, error) {
+func (uc *UserDeleteUseCase) UserDelete(id string) (*models.User, error) {
 
-	userDelete, err := uc.Repo.Delete(id)
+	userDelete, err := uc.Repo.UserDeleteRepo(id)
 	if err != nil {
 		return nil, err
 	}

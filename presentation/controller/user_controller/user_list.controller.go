@@ -10,7 +10,7 @@ type UserListController struct {
 }
 
 func (u *UserListController) Handle(ctx *gin.Context) {
-	users := u.UseCase.FindAll()
+	users := u.UseCase.UserFindAll()
 	ctx.Header("Content-Type", "application/json")
 	ctx.JSON(200, gin.H{
 		"data": users,

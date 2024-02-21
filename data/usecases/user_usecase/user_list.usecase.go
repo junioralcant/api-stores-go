@@ -6,11 +6,11 @@ import (
 )
 
 type UserListUseCase struct {
-	Repo user_contracts_infra.IUserRepository
+	Repo user_contracts_infra.IUserListAllRepository
 }
 
-func (u *UserListUseCase) FindAll() []models.User {
-	users := u.Repo.ListAll()
+func (u *UserListUseCase) UserFindAll() []models.User {
+	users := u.Repo.UserListAllRepo()
 
 	return users
 }
