@@ -7,9 +7,9 @@ import (
 )
 
 func UserUpdateControllerFactory() *user_controller.UserUpdateController {
-	repo := user_repository.UserUpdateRepository{}
-	useCase := user_usecase.UserUpdateUseCase{Repo: &repo}
-	userUpdateController := user_controller.UserUpdateController{UseCase: &useCase}
+	repo := user_repository.NewUserUpdateRepository()
+	useCase := user_usecase.NewUserUpdateUseCase(repo)
+	userUpdateController := user_controller.NewUserUpdateController(useCase)
 
-	return &userUpdateController
+	return userUpdateController
 }
