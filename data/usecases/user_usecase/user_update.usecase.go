@@ -9,6 +9,10 @@ type UserUpdateUseCase struct {
 	Repo user_contracts_infra.IUserUpdateRepository
 }
 
+func NewUserUpdateUseCase(repo user_contracts_infra.IUserUpdateRepository) *UserUpdateUseCase {
+	return &UserUpdateUseCase{Repo: repo}
+}
+
 func (u *UserUpdateUseCase) UserUpdate(id string, user models.User) (*models.User, error) {
 	userCreated, err := u.Repo.UserUpdateRepo(id, user)
 	if err != nil {

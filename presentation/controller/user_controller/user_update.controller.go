@@ -15,6 +15,10 @@ type UserUpdateController struct {
 	UseCase user_contracts.IUserUpdate
 }
 
+func NewUserUpdateController(useCase user_contracts.IUserUpdate) *UserUpdateController {
+	return &UserUpdateController{UseCase: useCase}
+}
+
 func (u *UserUpdateController) Handle(ctx *gin.Context) {
 
 	request := user_validation.UpdateUser{}

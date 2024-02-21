@@ -10,6 +10,10 @@ import (
 type UserUpdateRepository struct {
 }
 
+func NewUserUpdateRepository() *UserUpdateRepository {
+	return &UserUpdateRepository{}
+}
+
 func (r *UserUpdateRepository) UserUpdateRepo(id string, user models.User) (*models.User, error) {
 
 	userUpdated := models.User{}
