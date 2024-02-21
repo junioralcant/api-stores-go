@@ -15,9 +15,6 @@ func InitUserRoutes(r *gin.Engine, apiPrefix string) {
 	useCaseUpdate := user_usecase.UserUpdateUseCase{Repo: &repo}
 	userUpdateController := user_controller.UserUpdateController{UseCase: &useCaseUpdate}
 
-	useCaseDelete := user_usecase.UserDeleteUseCase{Repo: &repo}
-	userDeleteController := user_controller.UserDeleteController{UseCase: &useCaseDelete}
-
 	g := r.Group(apiPrefix)
 
 	g.GET("/users", user_factories.UserListAllControllerFactory().Handle)
@@ -26,5 +23,5 @@ func InitUserRoutes(r *gin.Engine, apiPrefix string) {
 
 	g.PUT("/user", userUpdateController.Handle)
 
-	g.DELETE("/user", userDeleteController.Handle)
+	g.DELETE("/user", user_factories.UserDeleteControllerFactory().Handle)
 }
