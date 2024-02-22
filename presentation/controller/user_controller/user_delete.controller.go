@@ -12,6 +12,10 @@ type UserDeleteController struct {
 	UseCase user_contracts.IUserDelete
 }
 
+func NewUserDeleteController(useCase user_contracts.IUserDelete) *UserDeleteController {
+	return &UserDeleteController{UseCase: useCase}
+}
+
 func (u *UserDeleteController) Handle(ctx *gin.Context) {
 	id := ctx.Query("id")
 	if id == "" {

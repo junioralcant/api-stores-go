@@ -9,6 +9,10 @@ type UserListUseCase struct {
 	Repo user_contracts_infra.IUserListAllRepository
 }
 
+func NewUserListUseCase(repo user_contracts_infra.IUserListAllRepository) *UserListUseCase {
+	return &UserListUseCase{Repo: repo}
+}
+
 func (u *UserListUseCase) UserFindAll() []models.User {
 	users := u.Repo.UserListAllRepo()
 

@@ -10,6 +10,10 @@ import (
 type UserDeleteRepository struct {
 }
 
+func NewUserDeleteRepository() *UserDeleteRepository {
+	return &UserDeleteRepository{}
+}
+
 func (r *UserDeleteRepository) UserDeleteRepo(id string) (*models.User, error) {
 	userDelete := models.User{}
 
