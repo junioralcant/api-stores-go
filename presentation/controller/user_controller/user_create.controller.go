@@ -10,6 +10,10 @@ type UserCreateController struct {
 	UseCase user_contracts.IUserCreate
 }
 
+func NewUserCreateController(useCase user_contracts.IUserCreate) *UserCreateController {
+	return &UserCreateController{UseCase: useCase}
+}
+
 func (u *UserCreateController) Handle(ctx *gin.Context) {
 	request := models.User{}
 

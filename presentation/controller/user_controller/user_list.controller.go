@@ -9,6 +9,10 @@ type UserListController struct {
 	UseCase user_contracts.IUserList
 }
 
+func NewUserListController(useCase user_contracts.IUserList) *UserListController {
+	return &UserListController{UseCase: useCase}
+}
+
 func (u *UserListController) Handle(ctx *gin.Context) {
 	users := u.UseCase.UserFindAll()
 	ctx.Header("Content-Type", "application/json")

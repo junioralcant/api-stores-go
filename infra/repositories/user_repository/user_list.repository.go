@@ -8,6 +8,10 @@ import (
 type UserListAllRepository struct {
 }
 
+func NewUserListRepository() *UserListAllRepository {
+	return &UserListAllRepository{}
+}
+
 func (r *UserListAllRepository) UserListAllRepo() []models.User {
 	users := []models.User{}
 

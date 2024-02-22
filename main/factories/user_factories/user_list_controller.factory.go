@@ -7,9 +7,9 @@ import (
 )
 
 func UserListAllControllerFactory() *user_controller.UserListController {
-	userListAllRepo := user_repository.UserListAllRepository{}
-	useCaseList := user_usecase.UserListUseCase{Repo: &userListAllRepo}
-	userListController := user_controller.UserListController{UseCase: &useCaseList}
+	userListAllRepo := user_repository.NewUserListRepository()
+	useCaseList := user_usecase.NewUserListUseCase(userListAllRepo)
+	userListController := user_controller.NewUserListController(useCaseList)
 
-	return &userListController
+	return userListController
 }

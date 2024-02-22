@@ -6,10 +6,10 @@ import (
 	"github.com/junioralcant/api-stores-go/presentation/controller/user_controller"
 )
 
-func UserDeleteControllerFactory() *user_controller.UserDeleteController {
-	repo := user_repository.UserDeleteRepository{}
-	useCaseCreate := user_usecase.UserDeleteUseCase{Repo: &repo}
-	userDeleteController := user_controller.UserDeleteController{UseCase: &useCaseCreate}
+func UserCreateControllerFactory() *user_controller.UserCreateController {
+	repo := user_repository.NewUserCreateRepository()
+	useCaseCreate := user_usecase.NewUserCreateUseCase(repo)
+	userCreateController := user_controller.NewUserCreateController(useCaseCreate)
 
-	return &userDeleteController
+	return userCreateController
 }

@@ -8,6 +8,10 @@ import (
 type UserCreateRepository struct {
 }
 
+func NewUserCreateRepository() *UserCreateRepository {
+	return &UserCreateRepository{}
+}
+
 func (r *UserCreateRepository) UserCreateRepo(user models.User) *models.User {
 	userCreate := models.User{
 		Name:     user.Name,
