@@ -3,7 +3,7 @@ package mocks
 import "github.com/junioralcant/api-stores-go/domain/models"
 
 type UserCreateRepositorySpy struct {
-	User models.User
+	Params models.User
 }
 
 func NewUserCreateRepositorySpy() *UserCreateRepositorySpy {
@@ -11,6 +11,6 @@ func NewUserCreateRepositorySpy() *UserCreateRepositorySpy {
 }
 
 func (r *UserCreateRepositorySpy) UserCreateRepo(user models.User) *models.User {
-	r.User = user
+	r.Params = user
 	return &user
 }

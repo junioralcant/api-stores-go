@@ -24,30 +24,25 @@ var userMocked = models.User{
 	Password: "123456",
 }
 
-func TestUserCreateUseCase_should_call_UserCreate_params_with_correct_values(t *testing.T) {
+func TestUserCreateUseCase_correct_params(t *testing.T) {
 	useCase, repoSpy := makeSut()
 
 	useCase.UserCreate(userMocked)
 
-	if repoSpy.User != userMocked {
-		t.Errorf("expected user %v, got %v", userMocked, repoSpy.User)
+	if repoSpy.Params != userMocked {
+		t.Errorf("expected user %v, got %v", userMocked, repoSpy.Params)
 	}
 }
 
-func TestUserCreateUseCase_should_return_user_if_create_user_ok(t *testing.T) {
+func TestUserCreateUseCase_correct_response(t *testing.T) {
 	useCase, _ := makeSut()
 
 	userCreated := useCase.UserCreate(userMocked)
 
 	assert.EqualValues(t, userCreated.Name, userMocked.Name)
-
 	assert.EqualValues(t, userCreated.Email, userMocked.Email)
-
 	assert.EqualValues(t, userCreated.Phone, userMocked.Phone)
-
 	assert.EqualValues(t, userCreated.CPF, userMocked.CPF)
-
 	assert.EqualValues(t, userCreated.Password, userMocked.Password)
-
 	assert.EqualValues(t, userCreated.ID, userMocked.ID)
 }
