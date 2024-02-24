@@ -15,6 +15,7 @@ func NewUserCreateController(useCase user_contracts.IUserCreate) *UserCreateCont
 }
 
 func (u *UserCreateController) Handle(ctx *gin.Context) {
+
 	request := models.User{}
 
 	ctx.BindJSON(&request)

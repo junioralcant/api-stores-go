@@ -6,44 +6,48 @@ import (
 	"github.com/junioralcant/api-stores-go/data/usecases/user_usecase"
 	"github.com/junioralcant/api-stores-go/domain/models"
 	"github.com/junioralcant/api-stores-go/infra/repositories/user_repository/mocks"
+	"github.com/stretchr/testify/assert"
 )
 
+func makeSut() (*user_usecase.UserCreateUseCase, *mocks.UserCreateRepositorySpy) {
+	repo := mocks.NewUserCreateRepositorySpy()
+	useCase := user_usecase.NewUserCreateUseCase(repo)
+	return useCase, repo
+}
+
+var userMocked = models.User{
+	ID:       1,
+	Name:     "jhon doe",
+	Email:    "jhon@example.com",
+	Phone:    "9999",
+	CPF:      "111.111.111-11",
+	Password: "123456",
+}
+
 func TestUserCreateUseCase_should_call_UserCreate_params_with_correct_values(t *testing.T) {
-	repoSpy := mocks.NewUserCreateRepositorySpy()
-	useCase := user_usecase.NewUserCreateUseCase(repoSpy)
+	useCase, repoSpy := makeSut()
 
-	user := models.User{
-		ID:       1,
-		Name:     "jhon doe",
-		Email:    "jhon@example.com",
-		Phone:    "9999",
-		CPF:      "111.111.111-11",
-		Password: "123456",
+	useCase.UserCreate(userMocked)
+
+	if repoSpy.User != userMocked {
+		t.Errorf("expected user %v, got %v", userMocked, repoSpy.User)
 	}
+}
 
-	useCase.UserCreate(user)
+func TestUserCreateUseCase_should_return_user_if_create_user_ok(t *testing.T) {
+	useCase, _ := makeSut()
 
-	if repoSpy.User.Name != user.Name {
-		t.Errorf("expected %s, got %s", user.Name, repoSpy.User.Name)
-	}
+	userCreated := useCase.UserCreate(userMocked)
 
-	if repoSpy.User.Email != user.Email {
-		t.Errorf("expected %s, got %s", user.Email, repoSpy.User.Email)
-	}
+	assert.EqualValues(t, userCreated.Name, userMocked.Name)
 
-	if repoSpy.User.Phone != user.Phone {
-		t.Errorf("expected %s, got %s", user.Phone, repoSpy.User.Phone)
-	}
+	assert.EqualValues(t, userCreated.Email, userMocked.Email)
 
-	if repoSpy.User.CPF != user.CPF {
-		t.Errorf("expected %s, got %s", user.CPF, repoSpy.User.CPF)
-	}
+	assert.EqualValues(t, userCreated.Phone, userMocked.Phone)
 
-	if repoSpy.User.Password != "user.Password" {
-		t.Errorf("expected %s, got %s", "user.Password", repoSpy.User.Password)
-	}
+	assert.EqualValues(t, userCreated.CPF, userMocked.CPF)
 
-	if repoSpy.User.ID != user.ID {
-		t.Errorf("expected %d, got %d", user.ID, repoSpy.User.ID)
-	}
+	assert.EqualValues(t, userCreated.Password, userMocked.Password)
+
+	assert.EqualValues(t, userCreated.ID, userMocked.ID)
 }
