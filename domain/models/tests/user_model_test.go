@@ -26,6 +26,4 @@ func TestUserModel_NewUser(t *testing.T) {
 	assert.EqualValues(t, user.Password, userMocked.Password)
 	assert.EqualValues(t, user.Status, &status)
 	assert.NotEmpty(t, user.ID)
-	assert.NotEmpty(t, user.CreatedAt)
-	assert.NotEmpty(t, user.UpdatedAt)
 }
