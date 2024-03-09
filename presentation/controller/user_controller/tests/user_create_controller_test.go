@@ -25,7 +25,7 @@ func TestUserCreateController_Handle(t *testing.T) {
 	url := url.Values{}
 
 	body := models.User{
-		ID:       19990,
+		ID:       "19990",
 		Name:     "test",
 		Email:    "junior@test",
 		Password: "12345",
