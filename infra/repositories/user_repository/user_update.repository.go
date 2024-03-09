@@ -18,7 +18,7 @@ func (r *UserUpdateRepository) UserUpdateRepo(id string, user models.User) (*mod
 
 	userUpdated := models.User{}
 
-	if err := config.DB.First(&userUpdated, id).Error; err != nil {
+	if err := config.DB.First(&userUpdated, "id = ?", id).Error; err != nil {
 		return nil, fmt.Errorf("error in search user: %+v", err)
 	}
 

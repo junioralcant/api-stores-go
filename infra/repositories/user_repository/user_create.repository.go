@@ -14,6 +14,7 @@ func NewUserCreateRepository() *UserCreateRepository {
 
 func (r *UserCreateRepository) UserCreateRepo(user models.User) *models.User {
 	userCreate := models.User{
+		ID:       user.ID,
 		Name:     user.Name,
 		Email:    user.Email,
 		Password: user.Password,
