@@ -16,7 +16,7 @@ func makeSut() (*user_usecase.UserCreateUseCase, *mocks.UserCreateRepositorySpy)
 }
 
 var userMocked = models.User{
-	ID:       1,
+	ID:       "1",
 	Name:     "jhon doe",
 	Email:    "jhon@example.com",
 	Phone:    "9999",
