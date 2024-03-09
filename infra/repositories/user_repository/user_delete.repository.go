@@ -17,7 +17,7 @@ func NewUserDeleteRepository() *UserDeleteRepository {
 func (r *UserDeleteRepository) UserDeleteRepo(id string) (*models.User, error) {
 	userDelete := models.User{}
 
-	if err := config.DB.First(&userDelete, id).Error; err != nil {
+	if err := config.DB.First(&userDelete, "id = ?", id).Error; err != nil {
 		return nil, fmt.Errorf("error in search user: %+v", err)
 	}
 
